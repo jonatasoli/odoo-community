@@ -1,0 +1,25 @@
+version: "3"
+services:
+    odoo:
+      image: odoo:10
+      container_name: odoo
+      ports:
+        - 8069:8069
+      tty: true
+      networks:
+        - test-saax
+      depends_on:
+        - db
+    db:
+      image: postgres:9.4
+      container_name: postgres
+      tty: true
+      networks:
+        - test-saax
+      environment:
+        - POSTGRES_USER=odoo
+        - POSTGRES_PASSWORD=odoo
+
+networks:
+    test-saax:
+       driver: bridge
