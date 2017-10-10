@@ -1,0 +1,15 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+    name: odoo-deployment
+spec:
+    template:
+        metadata:
+          labels:
+            name: odoo-container 
+        spec:
+            containers:
+              - name: odoo 
+                image: odoo:10 
+                ports:
+                    - containerPort: 8069

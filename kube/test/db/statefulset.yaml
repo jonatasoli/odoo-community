@@ -1,0 +1,28 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: statefulset-postgres
+spec:
+  serviceName: db
+  template:
+    metadata:
+        labels:
+            name: postgres
+    spec:
+        containers:
+          - name: container-postgres
+            image: postgres:9.4
+            ports:
+                - containerPort: 5432
+            env:
+                - name: POSTGRES_USER
+                  value: odoo
+                - name: POSTGRES_PASSWORD
+                  value: odoo
+            volumeMounts:
+                - name: volume-postgres
+                  mountPath: /var/lib/postgresql/data
+        volumes:
+            - name: volume-postgres
+              persistentVolumeClaim:
+                  claimName: config-postgres
